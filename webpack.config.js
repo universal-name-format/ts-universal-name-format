@@ -9,10 +9,7 @@ module.exports = {
     path: path.join(__dirname + '/dist')
   },
   resolve: {
-    extensions: [
-      '.ts',
-      '.js'
-    ],
+    extensions: ['.ts', '.js']
   },
   module: {
     rules: [
