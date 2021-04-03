@@ -13,14 +13,14 @@ interface Source {
 }
 
 export default class Name {
-  private _name: NameType;
-  private _order: OrderType = [];
-  private _encode: EncodeType = 'western';
+  private name: NameType;
+  private order: OrderType = [];
+  private encode: EncodeType = 'western';
 
   constructor(source: Source) {
-    this._name = source.name;
-    this._order = source.order;
-    this._encode = source.encode;
+    this.name = source.name;
+    this.order = source.order;
+    this.encode = source.encode;
   }
 
   public static isValidName(name: NameType) {
@@ -48,7 +48,15 @@ export default class Name {
     return order.every(o => PLACEHOLDERS[o]);
   }
 
-  public name(order?: string) {
+  public source() {
+    return {
+      name: this.getName(),
+      order: this.getOrder(),
+      encode: this.getEncode()
+    };
+  }
+
+  public formattedName(order?: string) {
     if (typeof this.getName() === 'string') {
       return this.getName();
     }
@@ -62,18 +70,18 @@ export default class Name {
       const clone = cloneDeep(this);
       clone.setOrder(EASTERN_ORDER);
 
-      return clone.name();
+      return clone.formattedName();
     } else if (order === 'lexical') {
       return [this.getName('family'), ', ', this.getName('given')].join('');
     } else if (order === 'western' || order === 'given-first') {
       const clone = cloneDeep(this);
       clone.setOrder(WESTERN_ORDER);
 
-      return clone.name();
+      return clone.formattedName();
     }
 
     orders.forEach(order => {
-      if (this._name[order] && this.getName(order)) {
+      if (this.name[order] && this.getName(order)) {
         orderedNames.push(this.getName(order));
       }
     });
@@ -87,57 +95,61 @@ export default class Name {
     const prefix = this.getName('prefix');
     const suffix = this.getName('suffix');
 
-    return `${prefix + prefix ? ' ' : ''}${this.name()}${' ' + suffix || ''}`;
+    return `${prefix ? prefix + ' ' : ''}${this.formattedName()}${
+      suffix ? ' ' + suffix : ''
+    }`;
   }
 
   public getName(placeholder?: string) {
     if (placeholder) {
-      return this._name[placeholder];
+      return this.name[placeholder];
     }
 
-    return this._name;
+    return this.name;
   }
 
-  private setName(name: string, placeholder?: string) {
+  public setName(name: string, placeholder?: string) {
     if (this.isMononym()) {
       return;
     }
 
     if (!Name.isValidName(name)) {
-      return false;
+      throw new Error('Error occured');
     }
 
     if (placeholder) {
-      this._name[placeholder] = name;
+      this.name[placeholder] = name;
+    } else {
+      this.name = name;
     }
   }
 
   public getOrder() {
-    return this._order;
+    return this.order;
   }
 
-  private setOrder(order: OrderType) {
+  public setOrder(order: OrderType) {
     if (this.isMononym()) {
       return;
     }
 
     if (!Name.isValidOrder(order)) {
-      return false;
+      throw new Error('Error occured');
     }
 
-    this._order = order;
+    this.order = order;
   }
 
   public getEncode() {
-    return this._encode;
+    return this.encode;
   }
 
-  private setEncode(encode: EncodeType) {
+  public setEncode(encode: EncodeType) {
     if (this.isMononym()) {
       return;
     }
 
-    this._encode = encode;
+    this.encode = encode;
   }
 
   public capitalFamilyName() {
@@ -164,6 +176,7 @@ export default class Name {
       const middleRemovedOrder = clone
         .getOrder()
         .filter(order => order !== 'middle');
+
       clone.setOrder(middleRemovedOrder);
     }
 
