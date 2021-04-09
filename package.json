@@ -1,5 +1,5 @@
 {
-  "name": "ts-universal-name-format",
+  "name": "@universal-name-format/universal-name-format",
   "version": "1.0.0",
   "description": "Universal Name Format Typescript Package",
   "main": "index.js",
