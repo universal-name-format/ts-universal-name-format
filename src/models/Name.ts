@@ -23,7 +23,7 @@ export default class Name {
     this.encode = source.encode;
   }
 
-  public static isValidName(name: NameType) {
+  public static isNameValid(name: NameType) {
     // Use toString method for clearer type checking.
     if (name?.toString() === '[object Object]') {
       const placholders = Object.keys(name);
@@ -40,7 +40,7 @@ export default class Name {
     return true;
   }
 
-  public static isValidOrder(order: OrderType) {
+  public static isOrderValid(order: OrderType) {
     if (!Array.isArray(order)) {
       return false;
     }
@@ -113,7 +113,7 @@ export default class Name {
       return;
     }
 
-    if (!Name.isValidName(name)) {
+    if (!Name.isNameValid(name)) {
       throw new Error('Error occured');
     }
 
@@ -122,6 +122,8 @@ export default class Name {
     } else {
       this.name = name;
     }
+
+    return this;
   }
 
   public getOrder() {
@@ -133,11 +135,13 @@ export default class Name {
       return;
     }
 
-    if (!Name.isValidOrder(order)) {
+    if (!Name.isOrderValid(order)) {
       throw new Error('Error occured');
     }
 
     this.order = order;
+
+    return this;
   }
 
   public getEncode() {
@@ -150,6 +154,8 @@ export default class Name {
     }
 
     this.encode = encode;
+
+    return this;
   }
 
   public capitalFamilyName() {
@@ -163,7 +169,7 @@ export default class Name {
     return clone;
   }
 
-  public initialGivenName(isIncludingMiddle?: boolean) {
+  public initialGivenName(includeMiddle?: boolean) {
     if (this.isMononym() || this.getEncode() === 'eastern') {
       return this;
     }
@@ -172,7 +178,7 @@ export default class Name {
     const initializedName = `${clone.getName('given')[0]}.`;
     clone.setName(initializedName, 'given');
 
-    if (!isIncludingMiddle && this.getName('middle')) {
+    if (!includeMiddle && this.getName('middle')) {
       const middleRemovedOrder = clone
         .getOrder()
         .filter(order => order !== 'middle');
