@@ -1,3 +1,3 @@
-export default function add(a: number, b: number) {
-  return a + b;
-}
+export { Name } from './models';
+export { EASTERN_ORDER, WESTERN_ORDER } from './constants';
+export { easternToName, mononymToName, westernToName } from './utils';
