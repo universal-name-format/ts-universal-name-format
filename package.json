@@ -1,6 +1,6 @@
 {
   "name": "@universal-name-format/universal-name-format",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Universal Name Format Typescript Package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
   "author": "pewww <jung22337@naver.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "yarn test && tsc",
     "format": "prettier '**/*.{js,ts}' --write",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "lint:fix": "eslint --fix '**/*.{js,ts}'",
