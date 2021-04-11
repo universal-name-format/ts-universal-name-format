@@ -1,18 +1,8 @@
-import {
-  // models
-  Name,
-  // utils
-  easternToName,
-  mononymToName,
-  westernToName,
-  // constants
-  EASTERN_ORDER,
-  WESTERN_ORDER
-} from '../';
+import Unf from '../';
 
 describe('Name model test', () => {
   it(`Should return a proper name when 'formattedName' function is called (eastern)`, () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: {
         given: '길동',
         family: '홍'
@@ -25,7 +15,7 @@ describe('Name model test', () => {
   });
 
   it(`Should return a proper name when 'formattedName' function is called (mononym)`, () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: 'Mr. Random',
       order: [],
       encode: 'mononym'
@@ -35,7 +25,7 @@ describe('Name model test', () => {
   });
 
   it(`Should return a proper name when 'formattedName' function is called (western)`, () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: {
         given: 'John',
         middle: 'Middle',
@@ -49,7 +39,7 @@ describe('Name model test', () => {
   });
 
   it('Change the name order and get its source (eastern)', () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: {
         given: 'John',
         middle: 'Middle',
@@ -68,12 +58,12 @@ describe('Name model test', () => {
       order: ['family', 'given']
     };
 
-    name.setOrder(EASTERN_ORDER);
+    name.setOrder(Unf.EASTERN_ORDER);
     expect(name.source()).toEqual(source);
   });
 
   it('Change the name order and get its source (western)', () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: {
         given: 'John',
         middle: 'Middle',
@@ -92,12 +82,12 @@ describe('Name model test', () => {
       order: ['given', 'middle', 'family']
     };
 
-    name.setOrder(WESTERN_ORDER);
+    name.setOrder(Unf.WESTERN_ORDER);
     expect(name.source()).toEqual(source);
   });
 
   it('Print western name as other name orders', () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: {
         given: 'John',
         middle: 'Middle',
@@ -113,7 +103,7 @@ describe('Name model test', () => {
   });
 
   it('Print the name as a capitalized family name', () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: {
         given: 'John',
         middle: 'Middle',
@@ -127,7 +117,7 @@ describe('Name model test', () => {
   });
 
   it('Print the name as a simplified middle name', () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: {
         given: 'John',
         middle: 'Middle',
@@ -141,7 +131,7 @@ describe('Name model test', () => {
   });
 
   it('Add honorifics with simplified given name', () => {
-    const name = new Name({
+    const name = new Unf.Name({
       name: {
         given: 'John',
         middle: 'Middle',
@@ -168,7 +158,7 @@ describe('Migrate to the model from a pure string', () => {
       order: ['family', 'given']
     };
 
-    expect(easternToName(targetName)).toEqual(model);
+    expect(Unf.easternToName(targetName)).toEqual(model);
   });
 
   it('Migrate name to mononym model', () => {
@@ -179,7 +169,7 @@ describe('Migrate to the model from a pure string', () => {
       order: []
     };
 
-    expect(mononymToName(targetName)).toEqual(model);
+    expect(Unf.mononymToName(targetName)).toEqual(model);
   });
 
   it('Migrate name to western model', () => {
@@ -194,6 +184,6 @@ describe('Migrate to the model from a pure string', () => {
       order: ['given', 'middle', 'family']
     };
 
-    expect(westernToName(targetName)).toEqual(model);
+    expect(Unf.westernToName(targetName)).toEqual(model);
   });
 });
