@@ -1,6 +1,6 @@
 {
   "name": "@universal-name-format/universal-name-format",
-  "version": "1.0.21",
+  "version": "1.0.3",
   "description": "Universal Name Format Typescript Package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
