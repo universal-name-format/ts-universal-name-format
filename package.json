@@ -1,13 +1,14 @@
 {
   "name": "@universal-name-format/universal-name-format",
-  "version": "1.0.0",
+  "version": "1.0.21",
   "description": "Universal Name Format Typescript Package",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/universal-name-format/ts-universal-name-format.git",
   "author": "pewww <jung22337@naver.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "tsc",
     "format": "prettier '**/*.{js,ts}' --write",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "lint:fix": "eslint --fix '**/*.{js,ts}'",
