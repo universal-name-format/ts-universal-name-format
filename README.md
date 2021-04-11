@@ -17,11 +17,11 @@ yarn add @universal-name-format/universal-name-format
 ### Create the model from UNF JSON source
 
 ```typescript
-import { Name } from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
 // Eastern name
 
-const me = new Name({
+const me = new Unf.Name({
   name: {
     given: '길동',
     family: '홍'
@@ -34,9 +34,9 @@ me.formattedName(); // '홍길동'
 
 // Mononym
 
-import { Name } from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
-const me = new Name({
+const me = new Unf.Name({
   name: 'Mr. Random',
   order: [],
   encode: 'mononym'
@@ -46,9 +46,9 @@ me.formattedName(); // 'Mr. Random'
 
 // Western name
 
-import { Name } from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
-const me = new Name({
+const me = new Unf.Name({
   name: {
     given: 'John',
     middle: 'Middle',
@@ -64,34 +64,30 @@ me.formattedName(); // 'John Middle Doe'
 ### Migrate to the model from a pure string
 
 ```typescript
-import {
-  easternToName,
-  mononymToName,
-  westernToName
-} from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
 // From an eastern name
 
 const targetString = '홍길동';
-const me = easternToName(targetString);
+const me = Unf.easternToName(targetString);
 
 // From a mononym
 
 const targetString = 'k4ng';
-const me = mononymToName(targetString);
+const me = Unf.mononymToName(targetString);
 
 // From a western name
 
 const targetString = 'John Middle Doe';
-const me = westernToName(targetString);
+const me = Unf.westernToName(targetString);
 ```
 
 ### Change the name order and get its source
 
 ```typescript
-import { Name, EASTERN_ORDER } from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
-const me = new Name({
+const me = new Unf.Name({
   name: {
     given: 'John',
     middle: 'Middle',
@@ -101,7 +97,7 @@ const me = new Name({
   encode: 'western'
 });
 
-me.setOrder(EASTERN_ORDER); // ['family', 'given']
+me.setOrder(Unf.EASTERN_ORDER); // ['family', 'given']
 me.source();
 // { name: { given: 'John', middle: ...
 ```
@@ -109,9 +105,9 @@ me.source();
 ### Print western name as other name orders
 
 ```typescript
-import { Name } from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
-const me = new Name({
+const me = new Unf.Name({
   name: {
     given: 'John',
     middle: 'Middle',
@@ -129,9 +125,9 @@ me.formattedName('eastern'); // 'Doe John'
 ### Print the name as a capitalized family name
 
 ```typescript
-import { Name } from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
-const me = new Name({
+const me = new Unf.Name({
   name: {
     given: 'John',
     middle: 'Middle',
@@ -147,9 +143,9 @@ me.capitalFamilyName().formattedName(); // 'John Middle DOE'
 ### Print the name as a simplified middle name
 
 ```typescript
-import { Name } from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
-const me = new Name({
+const me = new Unf.Name({
   name: {
     given: 'John',
     middle: 'Middle',
@@ -165,9 +161,9 @@ me.initialMiddleName().formattedName(); // 'John M. Doe'
 ### Add honorifics with simplified given name
 
 ```typescript
-import { Name } from '@universal-name-format/universal-name-format';
+import Unf from '@universal-name-format/universal-name-format';
 
-const me = new Name({
+const me = new Unf.Name({
   name: {
     given: 'John',
     middle: 'Middle',
